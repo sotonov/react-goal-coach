@@ -1,0 +1,14 @@
+.goals {
+  width: 100%;
+  margin: 20px auto;
+  padding: 0px 20px;
+  border: 2px solid #00b;
+  border-radius: 6px;
+}
+
+@media screen and (max-width: 576px) {
+  .goals {
+    width: 90%;
+    border: none;
+  }
+}

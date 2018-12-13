@@ -1,0 +1,9 @@
+export const GREETING_MESSAGE = ['Hello, ', '!'];
+export const GOAL_COACH_TITLE = "Goal Coach";
+export const COMPLETED_GOALS_LABEL = "Completed Goals:";
+export const UNCOMPLETED_GOALS_LABEL = "Goals to Complete";
+export const CLEAR_ALL = "Clear All";
+export const SIGN_IN = "Sign in";
+export const SIGN_UP = "Sign up";
+export const SWITCH_TO = "switch to";
+export const SUBMIT = "Submit";

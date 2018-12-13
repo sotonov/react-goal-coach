@@ -1,0 +1,9 @@
+.goalAdder {
+  display: inline-flex;
+}
+
+@media screen and (max-width: 576px) {
+  .goalAdder {
+    text-align: center;
+  }
+}

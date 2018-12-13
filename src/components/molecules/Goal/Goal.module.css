@@ -1,0 +1,13 @@
+.goal {
+  display: flex;
+  align-items: center;
+  size: auto;
+  margin-bottom: 4px;
+}
+
+@media screen and (max-width: 576px) {
+  .goal {
+    display: inline-block;
+    width: 72%;
+  }
+}

@@ -1,0 +1,12 @@
+.greeting {
+  width: 100%;
+  display: inline-block;
+}
+
+@media screen and (max-width: 576px) {
+  .greeting {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}

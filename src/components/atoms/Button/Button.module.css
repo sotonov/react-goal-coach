@@ -1,0 +1,87 @@
+.button {
+  border-width: 1px;
+  border-style: solid;
+  color: white;
+  cursor: pointer;
+}
+
+.button--big {
+  display: block;
+  width: 100px;
+  box-sizing: border-box;
+  outline: none;
+  border-radius: 3px;
+  font: inherit;
+  padding: 6px 10px;
+}
+
+.button--small {
+  height: 20px;
+  display: inline-block;
+  margin: 2px 4px;
+  border-radius: 6px;
+  background-color: #3f3;
+  text-align: center;
+  line-height: 50%;
+}
+
+.button--signin {
+  margin: 20px auto;
+  background-color: #06f;
+  border-color: #00b;
+}
+
+.button--signout {
+  margin: auto;
+  background-color: #06f;
+  border-color: #00b;
+  float: right;
+}
+
+.button--submit {
+  /* display: inline; */
+  margin: 20px 0 20px 8px;
+  background-color: #3f3;
+  border-color: #090;
+}
+
+.button--clear-all {
+  margin: 20px auto;
+  background-color: #f33;
+  border-color: #900;
+  float: left;
+}
+
+.button--complete-goal {
+  border-color: #090;
+}
+
+.button--delete-goal {
+  border-color: #900;
+  background-color: #f33;
+}
+
+
+@media screen and (max-width: 576px) {
+  .button--big {
+    width: 90px;
+  }
+
+  .button--clear-all {
+    float: none;
+    margin: 10px auto;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .button--submit {
+    margin: 10px auto;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .button--signout {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}

@@ -1,0 +1,57 @@
+.auth {
+  /* display: block; */
+  width: 400px;
+  margin: 40px auto;
+  border: 2px solid #00b;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.authTitle {
+  width: 200px;
+  margin: auto;
+  display: flex;
+  align-items: flex-end;
+}
+
+.authForm {
+  display: flexbox;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.InputElement {
+  outline: none;
+  border: 1px solid #00b;
+  border-radius: 3px;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+  display: block;
+  margin: 8px auto 10px;
+  /* width: auto; */
+  width: 200px;
+  box-sizing: border-box;
+}
+
+.InputElement:focus {
+  outline: none;
+  background-color: #ccc;
+}
+
+.Invalid {
+  border: 1px solid red;
+  /* background-color: salmon; */
+}
+
+
+
+@media screen and (max-width: 576px) {
+  .auth {
+    width: 90%;
+    margin: 40px auto;
+    border-style: none;
+    text-align: center;
+  }
+}

@@ -1,0 +1,21 @@
+.goalList {
+  display: block;
+}
+
+.uncompletedGoals, .completedGoals {
+  margin: 20px 0px;
+  position: relative;
+  overflow: hidden;
+}
+
+.completedGoal, .uncompletedGoal {
+  display: flex;
+  align-items: baseline;
+}
+
+
+@media screen and (max-width: 576px) {
+  .completedGoal, .uncompletedGoal {
+    align-items: center;
+  }
+}
