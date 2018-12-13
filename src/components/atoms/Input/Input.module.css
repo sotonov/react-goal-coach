@@ -1,11 +1,33 @@
 .input {
-  width: 320px;
   padding: 6px 10px;
-  margin: 20px auto;
   border: 1px solid #090;
   border-radius: 3px;
   box-sizing: border-box;
   font: inherit;
+}
+
+.goal_adder__input {
+  display: block;
+  width: 320px;
+  margin: 20px auto;
+}
+
+.auth__input {
+  display: block;
+  outline: none;
+  width: 200px;
+  margin: 8px auto 10px;
+  border-color: #00b;
+  background-color: white;
+}
+
+.auth__input:focus {
+  outline: none;
+  background-color: #ccc;
+}
+
+.auth__input--invalid {
+  border-color: red;
 }
 
 @media screen and (max-width: 576px) {

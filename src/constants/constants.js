@@ -7,3 +7,4 @@ export const SIGN_IN = "Sign in";
 export const SIGN_UP = "Sign up";
 export const SWITCH_TO = "switch to";
 export const SUBMIT = "Submit";
+export const ADD_A_GOAL = "Add a goal";

@@ -7,15 +7,23 @@ let cx = classNames.bind(styles);
 
 const Input = (props) => {
 
-  const { text, handleChange } = props;
-  let className = cx('input');
+  const { value, type, placeholder, goals, invalid, auth, handleChange } = props;
+
+  let className = cx({
+    input: true,
+    'goal_adder__input': goals,
+    'auth__input': auth,
+    'auth__input--invalid': invalid
+  });
+
+  console.log('className', className);
 
   return (
     <input
       className={className}
-      type='text'
-      placeholder='Add a goal'
-      value={text}
+      type={type}
+      placeholder={placeholder}
+      value={value}
       onChange={handleChange}
     />
   );

@@ -18,8 +18,11 @@ const GoalAdder = (props) => {
       className={className}
       onSubmit={handleSubmit}>
       <Input
-        text={text}
+        type='text'
+        placeholder={cst.ADD_A_GOAL}
+        value={text}
         handleChange={handleChange}
+        goals
       />
       <Button
         handleClick={handleSubmit}
