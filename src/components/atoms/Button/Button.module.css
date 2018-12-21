@@ -52,6 +52,11 @@
   float: left;
 }
 
+.button--disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
 .button--complete-goal {
   border-color: #090;
 }

@@ -3,20 +3,28 @@ import classNames from 'classnames/bind';
 
 import styles from './Input.module.css';
 
-let cx = classNames.bind(styles);
+export interface InputProps {
+  value?: string;
+  type: string;
+  placeholder: string;
+  goals?: boolean;
+  invalid?: boolean;
+  auth?: boolean;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-const Input = (props) => {
+const cx = classNames.bind(styles);
+
+const Input: React.SFC<InputProps> = (props) => {
 
   const { value, type, placeholder, goals, invalid, auth, handleChange } = props;
 
-  let className = cx({
+  const className = cx({
     input: true,
-    'goal_adder__input': goals,
     'auth__input': auth,
-    'auth__input--invalid': invalid
+    'auth__input--invalid': invalid,
+    'goal_adder__input': goals,
   });
-
-  console.log('className', className);
 
   return (
     <input

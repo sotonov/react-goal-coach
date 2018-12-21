@@ -6,12 +6,18 @@ import classNames from 'classnames/bind';
 
 import styles from './GoalAdder.module.css';
 
-let cx = classNames.bind(styles);
+export interface GoalAdderProps {
+  text: string;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-const GoalAdder = (props) => {
+const cx = classNames.bind(styles);
 
+const GoalAdder: React.SFC<GoalAdderProps> = (props) => {
   const { text, handleSubmit, handleChange } = props;
-  let className = cx('goalAdder');
+
+  const className = cx('goalAdder');
 
   return (
     <form
@@ -22,12 +28,11 @@ const GoalAdder = (props) => {
         placeholder={cst.ADD_A_GOAL}
         value={text}
         handleChange={handleChange}
-        goals
-      />
+        goals={true} />
       <Button
-        handleClick={handleSubmit}
-        content={cst.SUBMIT}
-        submit />
+        submit={true}>
+        {cst.SUBMIT}
+      </Button>
     </form>
   );
 };

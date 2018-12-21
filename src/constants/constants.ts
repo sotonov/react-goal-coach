@@ -5,6 +5,7 @@ export const UNCOMPLETED_GOALS_LABEL = "Goals to Complete";
 export const CLEAR_ALL = "Clear All";
 export const SIGN_IN = "Sign in";
 export const SIGN_UP = "Sign up";
+export const SIGN_OUT = "Sign out";
 export const SWITCH_TO = "switch to";
 export const SUBMIT = "Submit";
 export const ADD_A_GOAL = "Add a goal";

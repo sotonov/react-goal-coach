@@ -6,24 +6,31 @@ import classNames from 'classnames/bind';
 
 import styles from './Greeting.module.css';
 
-let cx = classNames.bind(styles);
+export interface GreetingProps {
+  user: string;
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
 
-const Greeting = (props) => {
+const cx = classNames.bind(styles);
 
+const Greeting: React.SFC<GreetingProps> = (props) => {
   const { user, handleClick } = props;
-  let className = cx('greeting');
 
-  let messageContent = cst.GREETING_MESSAGE.join(` ${user}`);
+  const className = cx('greeting');
+
+  const messageContent = cst.GREETING_MESSAGE.join(` ${user}`);
 
   return (
     <div className={className}>
       <Message
-        content={messageContent}
-        goals />
+        goals={true}>
+        {messageContent}
+      </Message>
       <Button
-        content='Sign out'
         handleClick={handleClick}
-        signout />
+        signout={true}>
+        {cst.SIGN_OUT}
+      </Button>
     </div>
   );
 };

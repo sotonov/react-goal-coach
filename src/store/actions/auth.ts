@@ -1,28 +1,32 @@
 import * as actionTypes from './actionTypes';
+import {
+  AuthSuccess,
+  AuthFail,
+  Signout
+} from '../types/auth';
 
 import { firebaseApp } from '../../shared/firebase';
 
-export const authSuccess = (email) => {
+export const authSuccess = (email: string): AuthSuccess => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     email
   };
 };
 
-export const authFail = (error) => {
+export const authFail = (error: string): AuthFail => {
   return {
     type: actionTypes.AUTH_FAIL,
     error
   };
 };
 
-export const auth = (email, password, isSignup) => {
+export const auth = (email: string, password: string, isSignup: boolean): any => {
   return dispatch => {
     if (isSignup) {
       firebaseApp.auth().createUserWithEmailAndPassword(email, password)
         .then(res => {
-          console.log('Signed up succesfully.');
-          const {email} = {...res.user};
+          // console.log('Signed up succesfully.');
           localStorage.setItem('email', email);
           dispatch(authSuccess(email));
         })
@@ -32,8 +36,7 @@ export const auth = (email, password, isSignup) => {
     } else {
       firebaseApp.auth().signInWithEmailAndPassword(email, password)
         .then(res => {
-          console.log('Signed in succesfully.');
-          const {email} = {...res.user};
+          // console.log('Signed in succesfully.');
           localStorage.setItem('email', email)
           dispatch(authSuccess(email));
         })
@@ -44,14 +47,14 @@ export const auth = (email, password, isSignup) => {
   }
 }
 
-export const signout = () => {
+export const signout = (): Signout => {
   localStorage.removeItem('email');
   return {
     type: actionTypes.SIGNOUT
   };
 };
 
-export const authCheckState = () => {
+export const authCheckState = (): any => {
   return dispatch => {
     const email = localStorage.getItem('email');
     if (!email) {

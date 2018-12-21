@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-router-dom": "^4.3.1",
     "firebase": "^5.5.9",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -10,14 +11,15 @@
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
+    "react-scripts-ts": "^4.0.8",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +29,15 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.15",
+    "@types/react": "^16.7.17",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-redux": "^6.0.11",
+    "@types/redux-thunk": "^2.1.0",
+    "redux-devtools-extension": "^2.13.7",
+    "typescript": "^3.2.2"
+  }
 }

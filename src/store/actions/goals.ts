@@ -1,31 +1,44 @@
 import * as actionTypes from './actionTypes';
+import {
+  AddGoalSuccess,
+  AddGoalFail,
+  FetchGoalsSuccess,
+  FetchGoalsFail,
+  CompleteGoalSuccess,
+  CompleteGoalFail,
+  DeleteGoalSuccess,
+  DeleteGoalFail,
+  ClearCompletedGoalSuccess,
+  GoalType,
+  AddedGoalType
+} from '../types/goals';
 import { database } from '../../shared/firebase';
 import { updateObject } from '../../shared/utility';
 
 const goalsRef = database.ref('goals');
 
-const addGoalSuccess = (goal) => {
+const addGoalSuccess = (goal: GoalType): AddGoalSuccess => {
   return {
     type: actionTypes.ADD_GOAL_SUCCESS,
     goal
   }
 }
 
-const addGoalFail = (error) => {
+const addGoalFail = (error: string): AddGoalFail => {
   return {
     type: actionTypes.ADD_GOAL_FAIL,
     error
   }
 }
 
-export const addGoal = (goal) => {
+export const addGoal = (goal: AddedGoalType): any => {
   return dispatch => {
     const postKey = database.ref().child('goals').push().key;
     const goalWithKey = updateObject(goal, {
       key: postKey
     });
-    let updates = {};
-    updates[`/goals/${postKey}`] = goal;;
+    const updates = {};
+    updates[`/goals/${postKey}`] = goal;
     database.ref().update(updates)
       .then(res => {
         console.log('Uploading a goal...');
@@ -37,31 +50,31 @@ export const addGoal = (goal) => {
   }
 }
 
-const fetchGoalsSuccess = (goals) => {
+const fetchGoalsSuccess = (goals: GoalType[]): FetchGoalsSuccess => {
   return {
     type: actionTypes.FETCH_GOALS_SUCCESS,
     goals
   }
 }
 
-const fetchGoalsFail = (error) => {
+const fetchGoalsFail = (error: string): FetchGoalsFail => {
   return {
     type: actionTypes.FETCH_GOALS_FAIL,
     error
   }
 }
 
-export const fetchGoals = () => {
+export const fetchGoals = (): any => {
   return dispatch => {
-    console.log('Fetching goals...');
+    // console.log('Fetching goals...');
     goalsRef.once('value')
       .then(snapshot => {
-        let goals = [];
+        const goals: any = [];
         snapshot.forEach(child => {
-          const { goal, createdBy, completedBy } = child.val();
+          const { text, createdBy, completedBy } = child.val();
           const key = child.key;
           goals.push({
-            goal,
+            text,
             createdBy,
             completedBy,
             key
@@ -77,7 +90,7 @@ export const fetchGoals = () => {
   }
 }
 
-const completeGoalSuccess = (key, email) => {
+const completeGoalSuccess = (key: string, email: string): CompleteGoalSuccess => {
   return {
     type: actionTypes.COMPLETE_GOAL_SUCCESS,
     key,
@@ -85,19 +98,19 @@ const completeGoalSuccess = (key, email) => {
   }
 }
 
-const completeGoalFail = (error) => {
+const completeGoalFail = (error: string): CompleteGoalFail => {
   return {
     type: actionTypes.COMPLETE_GOAL_FAIL,
     error
   }
 }
 
-export const completeGoal = (key, email) => {
+export const completeGoal = (key: string, email: string): any => {
   return dispatch => {
-    console.log('Trying to complete the goal...');
+    // console.log('Trying to complete the goal...');
     database.ref(`/goals/${key}`).update({completedBy: email})
       .then(res => {
-        console.log('Completing a goal...');
+        // console.log('Completing a goal...');
         dispatch(completeGoalSuccess(key, email));
       })
       .catch(error => {
@@ -106,23 +119,23 @@ export const completeGoal = (key, email) => {
   }
 }
 
-const deleteGoalSuccess = (key) => {
+const deleteGoalSuccess = (key: string): DeleteGoalSuccess => {
   return {
     type: actionTypes.DELETE_GOAL_SUCCESS,
     key
   }
 }
 
-const deleteGoalFail = (error) => {
+const deleteGoalFail = (error: string): DeleteGoalFail => {
   return {
     type: actionTypes.DELETE_GOAL_FAIL,
     error
   }
 }
 
-export const deleteGoal = (key) => {
+export const deleteGoal = (key: string): any => {
   return dispatch => {
-    console.log('Removing the goal...', key);
+    // console.log('Removing the goal...', key);
     database.ref(`/goals/${key}`).remove()
       .then(res => {
         console.log('Completing a goal...');
@@ -134,15 +147,15 @@ export const deleteGoal = (key) => {
   }
 }
 
-const clearCompletedGoalsSuccess = () => {
+const clearCompletedGoalsSuccess = (): ClearCompletedGoalSuccess => {
   return {
     type: actionTypes.CLEAR_COMPLETED_GOALS_SUCCESS
   }
 }
 
-export const clearCompletedGoals = (keys) => {
+export const clearCompletedGoals = (keys: string[]): any => {
   return dispatch => {
-    console.log('Clearing completed goals', keys);
+    // console.log('Clearing completed goals', keys);
     keys.forEach(key => {
       database.ref(`/goals/${key}`).remove()
       .catch(error => {

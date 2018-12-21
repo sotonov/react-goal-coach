@@ -3,13 +3,19 @@ import classNames from 'classnames/bind';
 
 import styles from './Label.module.css';
 
-let cx = classNames.bind(styles);
+export interface LabelProps {
+  children: string;
+  auth?: boolean;
+  goals?: boolean;
+}
 
-const Label = (props) => {
+const cx = classNames.bind(styles);
 
-  const { content, auth, goals } = props;
+const Label: React.SFC<LabelProps> = (props) => {
 
-  let className = cx({
+  const { auth, goals } = props;
+
+  const className = cx({
     label: true,
     'auth__label': auth,
     'goals__label': goals,
@@ -18,7 +24,7 @@ const Label = (props) => {
   return (
     <span
       className={className}>
-      {content}
+      {props.children}
     </span>
   );
 };

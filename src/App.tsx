@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -7,7 +7,12 @@ import Auth from './containers/Auth/Auth';
 import Goals from './containers/Goals/Goals';
 import * as actions from './store/actions/index';
 
-class App extends Component {
+interface AppProps {
+  email: string;
+  onTryAutoSignin: () => void;
+}
+
+class App extends React.Component<AppProps> {
   componentDidMount(){
     this.props.onTryAutoSignin();
   };
@@ -21,14 +26,11 @@ class App extends Component {
     )
 
     if (this.props.email) {
-      console.log(!!this.props.email);
       routes = (
         <Switch>
-          {/* <Route path='/auth' component={Auth} /> */}
           <Route path='/goals' component={Goals}/>
           <Redirect to='/goals' />
         </Switch>
-        // routes = <Route path='/goals' component={Goals}/>;
       )
     }
     return (
@@ -51,4 +53,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App) as any);

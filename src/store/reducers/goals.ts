@@ -1,37 +1,50 @@
 import * as actionTypes from '../actions/actionTypes';
+import {
+  AddGoalSuccess,
+  AddGoalFail,
+  FetchGoalsSuccess,
+  FetchGoalsFail,
+  CompleteGoalSuccess,
+  CompleteGoalFail,
+  DeleteGoalSuccess,
+  DeleteGoalFail,
+  ClearCompletedGoalSuccess,
+  GoalsAction,
+  GoalsState
+} from '../types/goals';
 import { updateObject } from '../../shared/utility';
 
-const initialState = {
+const initialState: GoalsState = {
   goals: [],
   error: null
 }
 
-const addGoalSuccess = (state, action) => {
+const addGoalSuccess = (state: GoalsState, action: AddGoalSuccess): GoalsState => {
   return updateObject(state, {
     goals: state.goals.concat(action.goal)
   });
 };
 
-const addGoalFail = (state, action) => {
+const addGoalFail = (state: GoalsState, action: AddGoalFail): GoalsState => {
   return updateObject(state, {
     error: action.error
   });
 };
 
-const fetchGoalsSuccess = (state, action) => {
+const fetchGoalsSuccess = (state: GoalsState, action: FetchGoalsSuccess): GoalsState => {
   return updateObject(state, {
     goals: action.goals
   })
 }
 
-const fetchGoalsFail = (state, action) => {
+const fetchGoalsFail = (state: GoalsState, action: FetchGoalsFail): GoalsState => {
   return updateObject(state, {
     error: action.error
   });
 };
 
-const completeGoalSuccess = (state, action) => {
-  let updatedGoals = [...state.goals];
+const completeGoalSuccess = (state: GoalsState, action: CompleteGoalSuccess): GoalsState => {
+  const updatedGoals = [...state.goals];
   const updatedGoalIndex = updatedGoals.findIndex(el => el.key === action.key);
   updatedGoals[updatedGoalIndex] = updateObject(updatedGoals[updatedGoalIndex], {
     completedBy: action.email
@@ -41,33 +54,33 @@ const completeGoalSuccess = (state, action) => {
   })
 }
 
-const completeGoalFail = (state, action) => {
+const completeGoalFail = (state: GoalsState, action: CompleteGoalFail): GoalsState => {
   return updateObject(state, {
     error: action.error
   });
 };
 
-const deleteGoalSuccess = (state, action) => {
+const deleteGoalSuccess = (state: GoalsState, action: DeleteGoalSuccess): GoalsState => {
   const updatedGoals = state.goals.filter(el => el.key !== action.key)
   return updateObject(state, {
     goals: updatedGoals
   });
 };
 
-const deleteGoalFail = (state, action) => {
+const deleteGoalFail = (state: GoalsState, action: DeleteGoalFail): GoalsState => {
   return updateObject(state, {
     error: action.error
   });
 };
 
-const clearCompletedGoalsSuccess = (state, action) => {
+const clearCompletedGoalsSuccess = (state: GoalsState, action: ClearCompletedGoalSuccess): GoalsState => {
   const updatedGoals = state.goals.filter(el => !el.completedBy);
   return updateObject(state, {
     goals: updatedGoals
   });
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state: GoalsState = initialState, action: GoalsAction): GoalsState => {
   switch (action.type) {
     case actionTypes.ADD_GOAL_SUCCESS: return addGoalSuccess(state, action);
     case actionTypes.ADD_GOAL_FAIL: return addGoalFail(state, action);

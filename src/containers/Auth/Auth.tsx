@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import { updateObject, checkValidity } from '../../shared/utility';
 import { Redirect } from 'react-router-dom';
 
@@ -13,8 +14,45 @@ import Input from '../../components/atoms/Input/Input';
 import styles from './Auth.module.css';
 import * as cst from '../../constants/constants';
 
-class Auth extends Component {
-  state = {
+export interface AuthProps {
+  email: string;
+  onAuth: (email: string, password: string, isSignup: boolean) => void;
+}
+
+export interface State {
+  controls: {
+    email: {
+      elementConfig: {
+        type: string,
+        placeholder: string,
+      },
+      value: string,
+      validation: {
+        required: boolean,
+        isEmail: boolean
+      },
+      valid: boolean,
+      touched: boolean,
+    },
+    password: {
+      elementConfig: {
+        type: string,
+        placeholder: string
+      },
+      value: string,
+      validation: {
+        required: boolean,
+        minLength: number
+      },
+      valid: boolean,
+      touched: boolean,
+    }
+  };
+  isSignup: boolean;
+}
+
+class Auth extends React.Component<AuthProps, State> {
+  state: State = {
     controls: {
       email: {
         elementConfig: {
@@ -46,39 +84,40 @@ class Auth extends Component {
     isSignup: false
   };
 
-  handleInputChange = (event, controlName) => {
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, controlName: string): void => {
     const updatedControls = updateObject(this.state.controls, {
       [controlName]: updateObject(this.state.controls[controlName], {
-        value: event.target.value,
-        valid: checkValidity(event.target.value, this.state.controls[controlName].validation),
+        value: e.target.value,
+        valid: checkValidity(e.target.value, this.state.controls[controlName].validation),
         touched: true
       })
     });
     this.setState({ controls: updatedControls });
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    // console.log(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup);
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
     this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup);
   }
 
-  handleChangeAuthMode = () => {
+  handleChangeAuthMode = (e: React.MouseEvent<HTMLElement>): void => {
     this.setState(prevState => {
       return { isSignup: !prevState.isSignup };
     })
   }
 
   render () {
-    const formElementsArray = [];
-    for(let key in this.state.controls){
-      formElementsArray.push({
-        id: key,
-        config: this.state.controls[key]
-      })
+    const formElementsArray: any = [];
+    for(const key in this.state.controls){
+      if (this.state.controls.hasOwnProperty(key)) {
+        formElementsArray.push({
+          id: key,
+          config: this.state.controls[key]
+        })
+      }
     }
 
-    let form = formElementsArray.map(formElement => {
+    const form = formElementsArray.map((formElement: any): React.ReactNode => {
       const isInvalid = !formElement.config.valid && formElement.config.validation && formElement.config.validation;
       return (
         <Input
@@ -86,16 +125,15 @@ class Auth extends Component {
           type={formElement.config.elementConfig.type}
           placeholder={formElement.config.elementConfig.placeholder}
           value={formElement.config.value}
-          auth
+          auth={true}
           invalid={isInvalid}
-          handleChange={(event) => this.handleInputChange(event, formElement.id)}
+          handleChange={(e) => this.handleInputChange(e, formElement.id)}
         />
       )
     });
 
     let redirectToGoals;
     if (this.props.email) {
-      // console.log('mail: ', this.props.email);
       redirectToGoals = <Redirect to='/goals' />;
     }
 
@@ -105,25 +143,29 @@ class Auth extends Component {
       <Aux>
         {redirectToGoals}
         <div className={styles.auth}>
-          <Title content={cst.GOAL_COACH_TITLE} auth />
+          <Title
+            auth={true}>
+            {cst.GOAL_COACH_TITLE}
+          </Title>
           <div className={styles.auth__title}>
             <Label
-              content={this.state.isSignup ? cst.SIGN_UP : cst.SIGN_IN}
-              auth />
+              auth={true}>
+              {this.state.isSignup ? cst.SIGN_UP : cst.SIGN_IN}
+            </Label>
             <Message
-              auth
-              content={messageContent}
-              handleClick={this.handleChangeAuthMode} />
+              handleClick={this.handleChangeAuthMode}
+              auth={true}>
+              {messageContent}
+            </Message>
           </div>
           <form
             className={styles.auth__form}
             onSubmit={this.handleSubmit}>
             {form}
             <Button
-              handleClick={this.handleSubmit}
-              content={this.state.isSignup ? cst.SIGN_UP : cst.SIGN_IN}
-              signin
-              />
+              signin={true}>
+              {this.state.isSignup ? cst.SIGN_UP : cst.SIGN_IN}
+            </Button>
           </form>
         </div>
       </Aux>
@@ -137,7 +179,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onAuth: (em, pw, isSignup) => dispatch(actions.auth(em, pw, isSignup))
   };
